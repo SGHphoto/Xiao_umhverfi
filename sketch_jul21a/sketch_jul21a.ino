@@ -1,5 +1,11 @@
 //#include <Arduino.h>
 /***************************************************************************
+  This sketch is based on Adafruit BME280 and SSD1306 sample sketches.
+  I have merged the sketches and modified them to display temperature(Hiti)
+  pressure, altitude(Haed) and humidity(Raki). This sketch has been setup 
+  for Seeduino Xiao board, but should work on most SAMD boards by modifying
+  pin definitions.
+/***************************************************************************
   This is a library for the BME280 humidity, temperature & pressure sensor
 
   Designed specifically to work with the Adafruit BME280 Breakout
@@ -32,19 +38,13 @@
 
 #define SEALEVELPRESSURE_HPA (1013.25)
 
-//#define SCREEN_WIDTH 96 // OLED display width, in pixels
-//#define SCREEN_HEIGHT 64 // OLED display height, in pixels
-
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
-
-
 #define OLED_DC     2
 #define OLED_CS     6
 #define OLED_RESET  1
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT,
                          &SPI, OLED_DC, OLED_RESET, OLED_CS);
-
 
 Adafruit_BME280 bme; // I2C
 //Adafruit_BME280 bme(BME_CS); // hardware SPI
@@ -59,10 +59,8 @@ void setup() {
 
   unsigned status;
 
-  // default settings
   status = bme.begin(0x76);
-  // You can also pass in a Wire library object like &Wire2
-  // status = bme.begin(0x76, &Wire2)
+  
   if (!status) {
     Serial.println("Could not find a valid BME280 sensor, check wiring, address, sensor ID!");
     Serial.print("SensorID was: 0x"); Serial.println(bme.sensorID(), 16);
@@ -95,9 +93,9 @@ void printValues() {
   Serial.println(" *C");
 
   display.setTextColor(SSD1306_WHITE);
-  display.clearDisplay();
+  //display.clearDisplay();
   display.setCursor(0, 9);
-  display.clearDisplay();
+  //display.clearDisplay();
   display.println("Hiti");
   display.setCursor(60, 9);
   display.println(bme.readTemperature());
@@ -144,27 +142,6 @@ void printValues() {
 
   Serial.println();
 }
-
-//void drawchar(void) {
-//  display.clearDisplay();
-//
-//  display.setTextSize(1);      // Normal 1:1 pixel scale
-//  display.setTextColor(SSD1306_WHITE); // Draw white text
-//  display.setCursor(0, 0);     // Start at top-left corner
-//  display.cp437(true);         // Use full 256 char 'Code Page 437' font
-//
-//  //   Not all the characters will fit on the display. This is normal.
-//  //   Library will draw what it can and the rest will be clipped.
-//  for (int16_t i = 0; i < 256; i++) {
-//    if (i == '\n') display.write(' ');
-//    else          display.write(i);
-//  }
-//
-//  display.display();
-//  delay(2000);
-//}
-
-
 
 void loop() {
   printValues();
