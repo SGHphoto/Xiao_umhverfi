@@ -124,9 +124,9 @@ void printValues() {
   
     display.setCursor(0,35);
     display.println(F("Haed"));
-    display.setCursor(60,35);
+    display.setCursor(56,35);
     display.println(bme.readAltitude(SEALEVELPRESSURE_HPA));
-    display.setCursor(100,25);
+    display.setCursor(93,25);
     display.println(F("m"));
     display.display();
 
@@ -136,9 +136,9 @@ void printValues() {
 
    display.setCursor(0,45);
    display.println(F("Raki"));
-   display.setCursor(60,45);
+   display.setCursor(56,45);
    display.println(bme.readHumidity());
-   display.setCursor(100,45);
+   display.setCursor(87,45);
    display.println(F("%"));
    display.display();
 
