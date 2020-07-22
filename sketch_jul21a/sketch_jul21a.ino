@@ -43,7 +43,7 @@
 #define OLED_CS     6
 #define OLED_RESET  1
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT,
-  &SPI, OLED_DC, OLED_RESET, OLED_CS);
+                         &SPI, OLED_DC, OLED_RESET, OLED_CS);
 
 
 Adafruit_BME280 bme; // I2C
@@ -53,110 +53,110 @@ Adafruit_BME280 bme; // I2C
 unsigned long delayTime;
 
 void setup() {
-    Serial.begin(115200);
-    while(!Serial);    // time to get serial running
-    Serial.println(F("BME280 test"));
+  Serial.begin(115200);
+  while (!Serial);   // time to get serial running
+  Serial.println(F("BME280 test"));
 
-    unsigned status;
-    
-    // default settings
-    status = bme.begin(0x76);  
-    // You can also pass in a Wire library object like &Wire2
-    // status = bme.begin(0x76, &Wire2)
-    if (!status) {
-        Serial.println("Could not find a valid BME280 sensor, check wiring, address, sensor ID!");
-        Serial.print("SensorID was: 0x"); Serial.println(bme.sensorID(),16);
-        Serial.print("        ID of 0xFF probably means a bad address, a BMP 180 or BMP 085\n");
-        Serial.print("   ID of 0x56-0x58 represents a BMP 280,\n");
-        Serial.print("        ID of 0x60 represents a BME 280.\n");
-        Serial.print("        ID of 0x61 represents a BME 680.\n");
-        while (1) delay(10);
-    }
+  unsigned status;
 
-      // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
-  if(!display.begin(SSD1306_SWITCHCAPVCC)) {
-    Serial.println(F("SSD1306 allocation failed"));
-    for(;;); // Don't proceed, loop forever
+  // default settings
+  status = bme.begin(0x76);
+  // You can also pass in a Wire library object like &Wire2
+  // status = bme.begin(0x76, &Wire2)
+  if (!status) {
+    Serial.println("Could not find a valid BME280 sensor, check wiring, address, sensor ID!");
+    Serial.print("SensorID was: 0x"); Serial.println(bme.sensorID(), 16);
+    Serial.print("        ID of 0xFF probably means a bad address, a BMP 180 or BMP 085\n");
+    Serial.print("   ID of 0x56-0x58 represents a BMP 280,\n");
+    Serial.print("        ID of 0x60 represents a BME 280.\n");
+    Serial.print("        ID of 0x61 represents a BME 680.\n");
+    while (1) delay(10);
   }
-    // Show initial display buffer contents on the screen --
+
+  // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
+  if (!display.begin(SSD1306_SWITCHCAPVCC)) {
+    Serial.println(F("SSD1306 allocation failed"));
+    for (;;); // Don't proceed, loop forever
+  }
+  // Show initial display buffer contents on the screen --
   // the library initializes this with an Adafruit splash screen.
   display.display();
-   delay(2000); // Pause for 2 seconds
-    display.clearDisplay();
-     Serial.println("-- Default Test --");
-     delayTime = 1000;
+  delay(2000); // Pause for 2 seconds
+  display.clearDisplay();
+  Serial.println("-- Default Test --");
+  delayTime = 1000;
 
-     Serial.println();
+  Serial.println();
 }
 
 void printValues() {
-    Serial.print("Temperature = ");
-    Serial.print(bme.readTemperature());
-    Serial.println(" *C");
-    
-    display.setTextColor(SSD1306_WHITE);
-    display.clearDisplay();
-    display.setCursor(0,9);
-    display.clearDisplay();
-    display.println("Hiti");
-    display.setCursor(60,9);
-    display.println(bme.readTemperature());
-    display.setCursor(93,9);
-    display.println("C");
-    display.display();
+  Serial.print("Temperature = ");
+  Serial.print(bme.readTemperature());
+  Serial.println(" *C");
 
-    Serial.print("Pressure = ");
-    Serial.print(bme.readPressure() / 100.0F);
-    Serial.println(" hPa");
-    
-    
-    display.setCursor(0,25);
-    display.println(F("Pressure"));
-    display.setCursor(56,25);
-    display.println(bme.readPressure() / 100.0F);
-    display.setCursor(100,25);
-    display.println(F("hPa"));
-    display.display();
+  display.setTextColor(SSD1306_WHITE);
+  display.clearDisplay();
+  display.setCursor(0, 9);
+  display.clearDisplay();
+  display.println("Hiti");
+  display.setCursor(60, 9);
+  display.println(bme.readTemperature());
+  display.setCursor(93, 9);
+  display.println("C");
+  display.display();
 
-    Serial.print("Approx. Altitude = ");
-    Serial.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
-    Serial.println(" m");
-  
-    display.setCursor(0,35);
-    display.println(F("Haed"));
-    display.setCursor(56,35);
-    display.println(bme.readAltitude(SEALEVELPRESSURE_HPA));
-    display.setCursor(93,25);
-    display.println(F("m"));
-    display.display();
+  Serial.print("Pressure = ");
+  Serial.print(bme.readPressure() / 100.0F);
+  Serial.println(" hPa");
 
-   Serial.print("Humidity = ");
-   Serial.print(bme.readHumidity());
-   Serial.println(" %");
 
-   display.setCursor(0,45);
-   display.println(F("Raki"));
-   display.setCursor(56,45);
-   display.println(bme.readHumidity());
-   display.setCursor(87,45);
-   display.println(F("%"));
-   display.display();
+  display.setCursor(0, 25);
+  display.println(F("Pressure"));
+  display.setCursor(56, 25);
+  display.println(bme.readPressure() / 100.0F);
+  display.setCursor(100, 25);
+  display.println(F("hPa"));
+  display.display();
 
-   Serial.println();
+  Serial.print("Approx. Altitude = ");
+  Serial.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
+  Serial.println(" m");
+
+  display.setCursor(0, 35);
+  display.println(F("Haed"));
+  display.setCursor(56, 35);
+  display.println(bme.readAltitude(SEALEVELPRESSURE_HPA));
+  display.setCursor(94, 35);
+  display.println(F("m"));
+  display.display();
+
+  Serial.print("Humidity = ");
+  Serial.print(bme.readHumidity());
+  Serial.println(" %");
+
+  display.setCursor(0, 45);
+  display.println(F("Raki"));
+  display.setCursor(56, 45);
+  display.println(bme.readHumidity());
+  display.setCursor(88, 45);
+  display.println(F("%"));
+  display.display();
+
+  Serial.println();
 }
 
 void drawchar(void) {
   display.clearDisplay();
 
-  display.setTextSize(3);      // Normal 1:1 pixel scale
+  display.setTextSize(1);      // Normal 1:1 pixel scale
   display.setTextColor(SSD1306_WHITE); // Draw white text
   display.setCursor(0, 0);     // Start at top-left corner
   display.cp437(true);         // Use full 256 char 'Code Page 437' font
-  
-//   Not all the characters will fit on the display. This is normal.
-//   Library will draw what it can and the rest will be clipped.
-  for(int16_t i=0; i<256; i++) {
-    if(i == '\n') display.write(' ');
+
+  //   Not all the characters will fit on the display. This is normal.
+  //   Library will draw what it can and the rest will be clipped.
+  for (int16_t i = 0; i < 256; i++) {
+    if (i == '\n') display.write(' ');
     else          display.write(i);
   }
 
@@ -166,12 +166,7 @@ void drawchar(void) {
 
 
 
-void loop() { 
-    printValues();
-    delay(delayTime);
+void loop() {
+  printValues();
+  delay(delayTime);
 }
-
-
-
-    
-    
