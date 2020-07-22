@@ -47,7 +47,10 @@
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT,
                          &SPI, OLED_DC, OLED_RESET, OLED_CS);
 
-Adafruit_VEML7700 veml = Adafruit_VEML7700();
+//Adafruit_VEML7700 veml = Adafruit_VEML7700();
+//  veml.setGain(VEML7700_GAIN_1);
+//  veml.setIntegrationTime(VEML7700_IT_800MS);
+//
 
 Adafruit_BME280 bme; // I2C
 //Adafruit_BME280 bme(BME_CS); // hardware SPI
@@ -62,46 +65,44 @@ void setup() {
   }
   //while (!Serial);   // time to get serial running
   Serial.println(F("BME280 test"));
-  Serial.println("Adafruit VEML7700 Test");
+//  Serial.println("Adafruit VEML7700 Test");
 
 
   unsigned status;
-  veml.setGain(VEML7700_GAIN_1);
-  veml.setIntegrationTime(VEML7700_IT_800MS);
 
-  Serial.print(F("Gain: "));
-  switch (veml.getGain()) {
-    case VEML7700_GAIN_1: Serial.println("1"); break;
-    case VEML7700_GAIN_2: Serial.println("2"); break;
-    case VEML7700_GAIN_1_4: Serial.println("1/4"); break;
-    case VEML7700_GAIN_1_8: Serial.println("1/8"); break;
-  }
-
-  Serial.print(F("Integration Time (ms): "));
-  switch (veml.getIntegrationTime()) {
-    case VEML7700_IT_25MS: Serial.println("25"); break;
-    case VEML7700_IT_50MS: Serial.println("50"); break;
-    case VEML7700_IT_100MS: Serial.println("100"); break;
-    case VEML7700_IT_200MS: Serial.println("200"); break;
-    case VEML7700_IT_400MS: Serial.println("400"); break;
-    case VEML7700_IT_800MS: Serial.println("800"); break;
-  }
+//  Serial.print(F("Gain: "));
+//  switch (veml.getGain()) {
+//    case VEML7700_GAIN_1: Serial.println("1"); break;
+//    case VEML7700_GAIN_2: Serial.println("2"); break;
+//    case VEML7700_GAIN_1_4: Serial.println("1/4"); break;
+//    case VEML7700_GAIN_1_8: Serial.println("1/8"); break;
+//  }
+//
+//  Serial.print(F("Integration Time (ms): "));
+//  switch (veml.getIntegrationTime()) {
+//    case VEML7700_IT_25MS: Serial.println("25"); break;
+//    case VEML7700_IT_50MS: Serial.println("50"); break;
+//    case VEML7700_IT_100MS: Serial.println("100"); break;
+//    case VEML7700_IT_200MS: Serial.println("200"); break;
+//    case VEML7700_IT_400MS: Serial.println("400"); break;
+//    case VEML7700_IT_800MS: Serial.println("800"); break;
+//  }
 
   //veml.powerSaveEnable(true);
   //veml.setPowerSaveMode(VEML7700_POWERSAVE_MODE4);
 
-  veml.setLowThreshold(10000);
-  veml.setHighThreshold(20000);
-  //veml.interruptEnable(true);
-
+//  veml.setLowThreshold(10000);
+//  veml.setHighThreshold(20000);
+//  veml.interruptEnable(true);
+//
 
   status = bme.begin(0x76);
 
-  if (!veml.begin()) {
-    Serial.println("Sensor not found");
-    while (1);
-  }
-
+//  if (!veml.begin()) {
+//    Serial.println("Sensor not found");
+//    while (1);
+//  }
+//
   if (!status) {
     Serial.println("Could not find a valid BME280 sensor, check wiring, address, sensor ID!");
     Serial.print("SensorID was: 0x"); Serial.println(bme.sensorID(), 16);
@@ -127,10 +128,6 @@ void setup() {
 
   Serial.println();
 }
-
-
-
-
 
 void printValues() {
   Serial.print("Temperature = ");
@@ -185,17 +182,15 @@ void printValues() {
   display.println(F("%"));
   display.display();
 
-  Serial.print("Lux: "); Serial.println(veml.readLux());
-  Serial.print("White: "); Serial.println(veml.readWhite());
-  Serial.print("Raw ALS: "); Serial.println(veml.readALS());
-  display.setCursor(0, 55);
-  display.println(F("Lux"));
-  display.setCursor(56, 55);
-  display.println(veml.readLux());
-  display.display();
-
-
-
+//  Serial.print("Lux: "); Serial.println(veml.readLux());
+//  Serial.print("White: "); Serial.println(veml.readWhite());
+//  Serial.print("Raw ALS: "); Serial.println(veml.readALS());
+//  display.setCursor(0, 55);
+//  display.println(F("Lux"));
+//  display.setCursor(56, 55);
+//  display.println(veml.readLux());
+//  display.display();
+//
 
   Serial.println();
 }
@@ -203,10 +198,11 @@ void printValues() {
 void loop() {
   printValues();
   delay(delayTime);
-  uint16_t irq = veml.interruptStatus();
-  if (irq & VEML7700_INTERRUPT_LOW) {
-    Serial.println("** Low threshold");
-  }
-  if (irq & VEML7700_INTERRUPT_HIGH) {
-    Serial.println("** High threshold");
-  }}
+//  uint16_t irq = veml.interruptStatus();
+//  if (irq & VEML7700_INTERRUPT_LOW) {
+//    Serial.println("** Low threshold");
+//  }
+//  if (irq & VEML7700_INTERRUPT_HIGH) {
+//    Serial.println("** High threshold");
+//  }}
+}
